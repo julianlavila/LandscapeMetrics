@@ -1,0 +1,72 @@
+<PAMDataset>
+  <Metadata>
+    <MDI key="lat#bounds">lat_bnds</MDI>
+    <MDI key="lat#standard_name">latitude</MDI>
+    <MDI key="lat#units">degrees_north</MDI>
+    <MDI key="lon#bounds">lon_bnds</MDI>
+    <MDI key="lon#standard_name">longitude</MDI>
+    <MDI key="lon#units">degrees_east</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#add_offset_err">0</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#calibrated_nt">5</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#cell_methods">time: mean</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#coordinates">lat lon</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#latitude_resolution">0.05</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#longitude_resolution">0.05</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#long_name">CMG 0.05 Deg Monthly EVI</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#orig_add_offset">0</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#orig_scale_factor">10000</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#product_short_name">MYD13C2</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#product_version">006</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#quantity_type">Vegetation</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#scale_factor_err">0</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#standard_name">cmg_0_05_deg_monthly_evi</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#units">EVI</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#valid_max">1</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#valid_min">-0.2</MDI>
+    <MDI key="MYD13C2_006_CMG_0_05_Deg_Monthly_EVI#_FillValue">-3000</MDI>
+    <MDI key="NC_GLOBAL#Conventions">CF-1.4</MDI>
+    <MDI key="NC_GLOBAL#end_time">2020-05-31T23:59:59Z</MDI>
+    <MDI key="NC_GLOBAL#history">Fri Aug 21 13:39:31 2020: /usr/bin/ncks -O -x -v time_bnds timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.nc timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.nc
+Fri Aug 21 13:39:31 2020: /usr/bin/ncatted -a valid_range,,d,, -O -o timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.nc timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.nc
+Fri Aug 21 13:39:30 2020: /usr/bin/ncatted -O -a title,global,o,c,MYD13C2_006_CMG_0_05_Deg_Monthly_EVI Averaged over 2020-01-01 to 2020-05-31 timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.nc
+Fri Aug 21 13:39:30 2020: /usr/bin/ncks -x -v time -o timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.nc -O timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.nc
+Fri Aug 21 13:39:30 2020: /usr/bin/ncwa -o timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.nc -a time -O timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.nc
+Fri Aug 21 13:39:24 2020: /usr/bin/ncra -D 2 -H -O -o timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.nc -d lat,6.465500,7.388300 -d lon,-74.071700,-72.489600</MDI>
+    <MDI key="NC_GLOBAL#NCO">"4.5.3"</MDI>
+    <MDI key="NC_GLOBAL#nco_openmp_thread_number">1</MDI>
+    <MDI key="NC_GLOBAL#plot_hint_subtitle">over 2020-Jan - 2020-May, Region 74.0717W, 6.4655N, 72.4896W, 7.3883N</MDI>
+    <MDI key="NC_GLOBAL#plot_hint_title">Time Averaged Map of CMG 0.05 Deg Monthly EVI monthly 0.05 deg. [MODIS-Aqua MYD13C2 v006] EVI</MDI>
+    <MDI key="NC_GLOBAL#start_time">2020-01-01T00:00:00Z</MDI>
+    <MDI key="NC_GLOBAL#title">Time Averaged Map of CMG 0.05 Deg Monthly EVI monthly 0.05 deg. [MODIS-Aqua MYD13C2 v006] EVI over 2020-Jan - 2020-May, Region 74.0717W, 6.4655N, 72.4896W, 7.3883N</MDI>
+    <MDI key="NC_GLOBAL#userenddate">2020-05-31T23:59:59Z</MDI>
+    <MDI key="NC_GLOBAL#userstartdate">2020-01-01T00:00:00Z</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <UnitType>EVI</UnitType>
+    <Metadata>
+      <MDI key="add_offset_err">0</MDI>
+      <MDI key="calibrated_nt">5</MDI>
+      <MDI key="cell_methods">time: mean</MDI>
+      <MDI key="coordinates">lat lon</MDI>
+      <MDI key="latitude_resolution">0.05</MDI>
+      <MDI key="longitude_resolution">0.05</MDI>
+      <MDI key="long_name">CMG 0.05 Deg Monthly EVI</MDI>
+      <MDI key="NETCDF_VARNAME">MYD13C2_006_CMG_0_05_Deg_Monthly_EVI</MDI>
+      <MDI key="orig_add_offset">0</MDI>
+      <MDI key="orig_scale_factor">10000</MDI>
+      <MDI key="product_short_name">MYD13C2</MDI>
+      <MDI key="product_version">006</MDI>
+      <MDI key="quantity_type">Vegetation</MDI>
+      <MDI key="scale_factor_err">0</MDI>
+      <MDI key="standard_name">cmg_0_05_deg_monthly_evi</MDI>
+      <MDI key="STATISTICS_MAXIMUM">0.61878001689911</MDI>
+      <MDI key="STATISTICS_MEAN">0.43542901592263</MDI>
+      <MDI key="STATISTICS_MINIMUM">0.18221999704838</MDI>
+      <MDI key="STATISTICS_STDDEV">0.11243589640169</MDI>
+      <MDI key="units">EVI</MDI>
+      <MDI key="valid_max">1</MDI>
+      <MDI key="valid_min">-0.2</MDI>
+      <MDI key="_FillValue">-3000</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>

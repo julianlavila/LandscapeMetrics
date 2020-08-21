@@ -1,0 +1,201 @@
+---
+title: "LandscapeMetrics"
+author: "Julian Avila-Jimenez"
+date: "21/8/2020"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 3
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = T, message = F, warning = F)
+library(tidyverse)
+library(landscapemetrics)
+library(landscapetools)
+library(raster)
+library(knitr)
+library(kableExtra)
+```
+
+## Landscape metrics calculation exercise using the [Landscapemetrics](https://github.com/r-spatialecology/landscapemetrics) library
+
+### Download raster data:
+
+[Enhanced Vegetation Index](https://en.wikipedia.org/wiki/Enhanced_vegetation_index) downloaded from [Nasa Giovanni](https://giovanni.gsfc.nasa.gov/giovanni/giovanni-login-redirect?code=9778b03b2b4906b69a84134c82d0d2eba9f2ffef0c5f94ce46a0ba002e5a30ed&state=https%3A%2F%2Fgiovanni%2Egsfc%2Enasa%2Egov%2Fgiovanni%2F) 
+
+```{r}
+raster<-raster("./raster/GIOVANNI-g4.timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N.tif")
+
+check_landscape(raster) %>% 
+  kable(caption="EVI features") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                fixed_thead = T,
+                full_width = F, 
+                position = "left")
+```
+The raster has a geographic CRS, is necesary to transform to projected CRS using [epsg:3117](https://spatialreference.org/ref/epsg/magna-sirgas-colombia-bogota-zone/) 
+```{r}
+crs(raster)<- "+init=epsg:3117 +proj=longlat +datum=WGS84 +no_defs"
+
+check_landscape(raster) %>% kable()
+```
+
+#### Summary of raster data
+
+```{r ,echo = F, fig.show="hide" }
+summary(raster)
+f <- hist(raster, main="Raster histogram", col="steelblue", breaks=20)
+
+dat <- data.frame(counts= f$counts,breaks = f$mids)
+```
+
+#### Raster histogram 
+
+```{r}
+ggplot(dat, aes(x = breaks, y = counts, fill =counts)) + ## Note the new aes fill here
+  geom_bar(stat = "identity",alpha = 1)+
+  labs(x="Pixel value",y="Frequency",
+       title = "Raster histogram",
+       caption = "EVI from Nasa Giovanny:\nGIOVANNI-g4.timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N")+
+  scale_x_continuous(breaks = seq(-0.1,1,0.1),
+                   labels = seq(-0.1,1,0.1))+
+  scale_fill_gradient(low="grey80", high="white")+          ## to play with colors limits
+  theme_light()+
+  theme(plot.title=element_text(size=19),
+        plot.caption = element_text(size = 7, color="grey60"),
+        panel.background = element_rect(fill="steelblue"),
+        panel.grid.major = element_line(size = 0.3, linetype = 'dotted',
+                                colour = "white"),
+        panel.grid.minor = element_line(size = 0.3, linetype = 'dotted',
+                                colour = "white"),
+        legend.position = "none")
+
+```
+
+### Raster reclasification
+
+#### clasification matrix
+
+This is where the different classes and the cutoff points of each one are defined. In this example we are going to reclassify the raster into tree classes.
+
+```{r}
+# create classification matrix
+reclass_df <- c(0.181, 0.3, 1,
+              0.3, 0.4, 1,
+             0.4, 0.5, 2,
+             0.5, Inf, 3)
+reclass_df
+# reshape the object into a matrix with columns and rows
+reclass_m <- matrix(reclass_df,
+                ncol = 3,
+                byrow = TRUE)
+reclass_m
+```
+
+And here is where the reclassification process is made
+
+```{r}
+# reclassify the raster using the reclass object - reclass_m
+raster_classified <- reclassify(raster,reclass_m)
+```
+```{r,echo = F, fig.show="hide"}
+g <- hist(raster_classified, main="Raster histogram", col="steelblue", breaks=3)
+
+dat2 <- data.frame(counts= g$counts,breaks = g$mids)
+```
+
+### Reclassification result 
+
+```{r}
+ggplot(dat2, aes(x = breaks, y = counts, fill =counts)) + ## Note the new aes fill here
+  geom_bar(stat = "identity",alpha = 1)+
+  labs(x="Class",y="",
+       title = "Number of pixels in each class",
+       caption = "EVI from Nasa Giovanny:\nGIOVANNI-g4.timeAvgMap.MYD13C2_006_CMG_0_05_Deg_Monthly_EVI.20200101-20200531.74W_6N_72W_7N")+
+  scale_x_continuous(breaks = seq(1,3,1),
+                   labels = seq(1,3,1))+
+  scale_fill_gradient(low="white", high="white")+          ## to play with colors limits
+  theme_light()+
+  theme(plot.title=element_text(size=19),
+        plot.caption = element_text(size = 7, color="grey60"),
+        panel.background = element_rect(fill="steelblue"),
+        panel.grid.major = element_line(size = 0.3, linetype = 'dotted',
+                                colour = "white"),
+        panel.grid.minor = element_line(size = 0.3, linetype = 'dotted',
+                                colour = "white"),
+        legend.position = "none")
+
+
+```
+
+### Plot the reclassified raster
+
+```{r}
+
+# plot reclassified data
+show_landscape(raster_classified)
+
+
+check_landscape(raster_classified)
+```
+
+Here we see the tree different patch
+
+### landscape metrics  
+
+- Table of metrics by each patch
+
+```{r}
+list_lsm(level = 'patch') 
+
+metrics<- calculate_lsm(raster_classified, level = "patch") 
+
+kable(metrics, caption = "Landscape Metrics by patch") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                fixed_thead = T,
+                full_width = F, 
+                position = "left") %>% 
+  scroll_box(width = "400px", height = "400px")
+```
+
+- Table of metrics by patch class
+
+```{r}
+metrics %>% 
+  group_by(class, metric) %>% 
+  summarise(Val=sum(value)) %>% 
+  kable(caption="Landscape Metrics by patch class") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                fixed_thead = T,
+                full_width = F, 
+                position = "left") %>% 
+  scroll_box(width = "250px", height = "400px")
+```
+
+
+### Patches plot
+
+```{r}
+
+show_patches(raster_classified, labels = T)
+
+# show patches of all classes
+show_patches(raster_classified, class = "all", labels = FALSE)
+```
+
+### Patches area
+
+```{r}
+# fill patch according to area
+show_lsm(raster_classified, what = "lsm_p_area", class = "global", label_lsm = TRUE)
+```
+
+### Correlation matrix
+
+```{r}
+show_correlation(metrics)
+```
+
